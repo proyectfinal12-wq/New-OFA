@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COOLTURE · Fòrum Cultural del Món</title>
+    <link rel="icon" href="icon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --oro: #c6a75e;
+            --azul: #25387D;
+            --blanco-hueso: #F5F1E8;
+            --gris-pizarra: #2E2E2E;
+            --verde-header: #667F57;
+            --negro: #0f0f0f;
+            --blanco: #ffffff;
+            --verde: #a3e635;
+            --verde-oscuro: #65a30d;
+            --fondo: #F5F1E8;
+            --pin-color: #c6a75e;
+            --pin-glow: rgba(198, 167, 94, 0.9);
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-bounce: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            --shadow-sm: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 30px 60px -15px rgba(0, 0, 0, 0.2);
+            --shadow-card: 0 15px 35px -10px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--fondo);
+            color: var(--gris-pizarra);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        header {
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: var(--blanco);
+            border-bottom: 1px solid rgba(46, 46, 46, 0.08);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo-img {
+            height: 45px;
+            width: auto;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .logo-img:hover {
+            transform: scale(1.02);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gris-pizarra);
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 6px;
+            transition: var(--transition);
+            white-space: nowrap;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--oro);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 60px;
+            position: relative;
+            gap: 60px;
+        }
+
+        .hero-text {
+            flex: 1.2;
+            animation: fade-up 0.8s ease-out;
+        }
+
+        .hero-text .badge {
+            display: inline-block;
+            background: rgba(163, 230, 53, 0.15);
+            backdrop-filter: blur(4px);
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 500;
+            margin-bottom: 30px;
+            border: 1px solid var(--verde);
+            color: var(--verde-oscuro);
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(145deg, var(--verde), var(--oro));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.85;
+            max-width: 550px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .stat-item h3 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--negro);
+        }
+
+        .stat-item p {
+            font-size: 0.9rem;
+            margin: 5px 0 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero-image {
+            flex: 1;
+            position: relative;
+            animation: scale-in 0.8s 0.2s both;
+        }
+
+        @keyframes floatVertical {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .atlas-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1/1;
+        }
+
+        .globe {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            animation: floatVertical 6s infinite ease-in-out;
+            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.08), 0 0 0 8px rgba(163, 230, 53, 0.12),
+                0 30px 50px rgba(0, 0, 0, 0.5);
+            background: radial-gradient(circle at 35% 30%, #1b3b5c, #0a1a2f 80%);
+        }
+
+        .globe.paused {
+            animation-play-state: paused;
+        }
+
+        .globe-map {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Blue_Marble_2002.png/1280px-Blue_Marble_2002.png') no-repeat;
+            background-size: 100% 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .globe-clouds {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Earth_clouds_map.png/1280px-Earth_clouds_map.png') no-repeat;
+            background-size: 100% 100%;
+            pointer-events: none;
+            z-index: 2;
+            opacity: 0.35;
+            mix-blend-mode: overlay;
+        }
+
+        .globe-shadow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(ellipse at 20% 30%,
+                    rgba(255, 255, 255, 0.25) 0%,
+                    transparent 50%,
+                    rgba(0, 0, 0, 0.55) 85%,
+                    rgba(0, 0, 0, 0.7) 100%);
+            pointer-events: none;
+            z-index: 3;
+            box-shadow: inset -15px -5px 40px rgba(0, 0, 0, 0.7),
+                inset 10px 10px 20px rgba(255, 255, 255, 0.15),
+                inset 0 0 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .globe-atmosphere {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 50%;
+            background: radial-gradient(ellipse at 40% 35%, rgba(255, 255, 255, 0.12) 0%, transparent 65%);
+            pointer-events: none;
+            z-index: 4;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* PINES */
+        .pin {
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 50;
+            transform: translate(-50%, -50%);
+            pointer-events: auto;
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .pin::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 14px;
+            height: 14px;
+            background: var(--pin-color);
+            border: 3px solid white;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px var(--pin-glow);
+            transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+            animation: pinPulse 2.5s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        .pin::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: transparent;
+            box-shadow: 0 0 0 0 rgba(198, 167, 94, 0.7);
+            transform: translate(-50%, -50%);
+            animation: pinRipple 2.5s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        .pin:hover::before {
+            background: var(--verde);
+            border-color: var(--verde);
+            box-shadow: 0 0 40px var(--verde), 0 0 70px rgba(163, 230, 53, 0.5);
+            animation: none;
+        }
+
+        .pin:hover::after {
+            animation: none;
+            box-shadow: 0 0 0 0 rgba(163, 230, 53, 0);
+        }
+
+        .pin:active {
+            transform: translate(-50%, -50%) scale(0.9);
+        }
+
+        @keyframes pinPulse {
+            0%, 100% { box-shadow: 0 0 20px var(--pin-glow); }
+            50% { box-shadow: 0 0 35px var(--pin-glow), 0 0 0 15px rgba(198, 167, 94, 0); }
+        }
+
+        @keyframes pinRipple {
+            0% { box-shadow: 0 0 0 0 rgba(198, 167, 94, 0.8); width: 14px; height: 14px; }
+            100% { box-shadow: 0 0 0 28px rgba(198, 167, 94, 0); width: 56px; height: 56px; }
+        }
+
+        .pin-tooltip {
+            position: absolute;
+            bottom: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--negro);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s, transform 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            z-index: 100;
+        }
+
+        .pin:hover .pin-tooltip {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-4px);
+        }
+
+        /* POPUP DE PAÍS */
+        .pin-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+
+        .pin-popup-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .pin-popup-card {
+            background: var(--blanco);
+            max-width: 420px;
+            width: 90%;
+            border-radius: 36px;
+            padding: 35px 30px 30px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35), 0 0 0 3px var(--oro), 0 0 0 6px rgba(163, 230, 53, 0.3);
+            text-align: center;
+            position: relative;
+            transform: scale(0.85) translateY(20px);
+            transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 2px solid rgba(198, 167, 94, 0.4);
+        }
+
+        .pin-popup-overlay.show .pin-popup-card {
+            transform: scale(1) translateY(0);
+        }
+
+        .popup-emoji {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+
+        .popup-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--negro);
+            margin-bottom: 12px;
+        }
+
+        .popup-text {
+            font-size: 1.05rem;
+            color: var(--gris-pizarra);
+            opacity: 0.85;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .popup-badge {
+            display: inline-block;
+            background: rgba(163, 230, 53, 0.15);
+            color: var(--verde-oscuro);
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 6px 16px;
+            border-radius: 30px;
+            border: 1px solid rgba(163, 230, 53, 0.4);
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--negro);
+            opacity: 0.45;
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .popup-close:hover {
+            opacity: 1;
+            background: rgba(0, 0, 0, 0.06);
+            transform: rotate(90deg);
+        }
+
+        /* SECCIONES */
+        .recursos {
+            padding: 80px 0;
+            background: var(--blanco);
+            border-radius: 60px 60px 0 0;
+            margin-top: -40px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .recursos-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .recursos-header h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--negro);
+            margin-bottom: 0.5rem;
+        }
+
+        .recursos-header h2 span {
+            background: linear-gradient(145deg, var(--verde), var(--oro));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .recursos-header p {
+            font-size: 1.2rem;
+            opacity: 0.7;
+        }
+
+        .recursos-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 30px;
+        }
+
+        .recurso-card {
+            background: var(--fondo);
+            border-radius: 30px;
+            padding: 35px 25px 30px;
+            text-align: center;
+            transition: var(--transition-bounce);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .recurso-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--verde), var(--oro));
+            transform: scaleX(0);
+            transition: transform 0.5s ease;
+        }
+
+        .recurso-card:hover {
+            transform: translateY(-12px);
+            box-shadow: var(--shadow-card);
+            border-color: rgba(163, 230, 53, 0.3);
+            background: #fff;
+        }
+
+        .recurso-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .recurso-icono {
+            width: 70px;
+            height: 70px;
+            background: white;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            color: var(--verde-oscuro);
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1);
+            transition: var(--transition-bounce);
+        }
+
+        .recurso-card:hover .recurso-icono {
+            transform: scale(1.1) rotate(3deg);
+            color: var(--negro);
+            box-shadow: 0 15px 25px -5px rgba(163, 230, 53, 0.3);
+        }
+
+        .recurso-titulo {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--negro);
+            margin: 0;
+        }
+
+        .recurso-descripcion {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin: 0;
+        }
+
+        .recurso-link {
+            margin-top: auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--verde-oscuro);
+            background: rgba(163, 230, 53, 0.1);
+            padding: 8px 18px;
+            border-radius: 30px;
+            transition: var(--transition);
+            text-decoration: none;
+            border: 1px solid transparent;
+        }
+
+        .recurso-card:hover .recurso-link {
+            background: var(--verde);
+            color: var(--negro);
+            border-color: var(--verde);
+            box-shadow: 0 5px 15px rgba(163, 230, 53, 0.3);
+        }
+
+        .recurso-enlaces {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .video-seccion {
+            padding: 100px 0;
+            background: var(--blanco);
+            position: relative;
+            z-index: 5;
+        }
+
+        .video-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .video-header h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--negro);
+        }
+
+        .video-header p {
+            font-size: 1.2rem;
+            opacity: 0.7;
+        }
+
+        .video-contenedor {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--fondo);
+            border-radius: 30px;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            border: 2px solid var(--oro);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .video-contenedor video {
+            width: 100%;
+            display: block;
+            border-radius: 28px;
+            outline: none;
+        }
+
+        .features {
+            padding: 120px 0;
+            background: var(--blanco);
+            position: relative;
+            z-index: 5;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        .section-header h2 {
+            font-size: 3.5rem;
+            font-weight: 700;
+        }
+        .section-header h2 span {
+            background: linear-gradient(145deg, var(--verde), var(--oro));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .section-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.7;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--fondo);
+            padding: 40px 25px;
+            border-radius: 30px;
+            transition: var(--transition-bounce);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--verde), var(--oro));
+            transform: scaleX(0);
+            transition: transform 0.5s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--verde);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-image {
+            width: 90px;
+            height: 90px;
+            margin-bottom: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            box-shadow: none;
+            border-radius: 0;
+            overflow: visible;
+        }
+
+        .feature-image img {
+            width: 90px;
+            height: auto;
+            object-fit: contain;
+            transition: transform 0.4s ease;
+        }
+
+        .feature-card:hover .feature-image img {
+            transform: scale(1.08);
+        }
+
+        .feature-card h3 {
+            font-size: 1.7rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .feature-card p {
+            opacity: 0.7;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 60px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition-bounce);
+            border: none;
+            cursor: pointer;
+            background: transparent;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .btn-oro {
+            background: var(--oro);
+            color: var(--negro);
+            font-weight: 700;
+            box-shadow: 0 10px 20px -5px rgba(198, 167, 94, 0.3);
+        }
+
+        .btn-oro:hover {
+            background: #b8943f;
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 20px 30px -5px rgba(198, 167, 94, 0.4);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background: var(--blanco);
+            max-width: 450px;
+            width: 90%;
+            border-radius: 40px;
+            padding: 30px;
+            box-shadow: var(--shadow-lg), 0 0 0 2px var(--verde);
+            transform: scale(0.9);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            border: 1px solid rgba(163, 230, 53, 0.3);
+        }
+
+        .modal-overlay.show .modal-card {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            border-bottom: 2px dashed var(--verde);
+            padding-bottom: 15px;
+        }
+
+        .modal-flag {
+            font-size: 3rem;
+        }
+        .modal-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--negro);
+        }
+        .modal-subtitle {
+            font-size: 1rem;
+            color: var(--verde-oscuro);
+            font-weight: 500;
+        }
+
+        .modal-detail {
+            margin: 20px 0;
+            background: var(--fondo);
+            padding: 20px;
+            border-radius: 20px;
+            border-left: 6px solid var(--oro);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--negro);
+            opacity: 0.5;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            opacity: 1;
+            transform: rotate(90deg);
+            color: var(--verde-oscuro);
+        }
+
+        .privacy-content h3,
+        .faq-content h3 {
+            margin-top: 15px;
+            margin-bottom: 8px;
+        }
+
+        footer {
+            background: var(--gris-pizarra);
+            color: #ccc;
+            padding: 60px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 40px;
+        }
+
+        .footer-logo-img {
+            height: 40px;
+            margin-bottom: 15px;
+        }
+        .footer-text {
+            margin-top: 20px;
+            opacity: 0.8;
+        }
+        .footer-decoration {
+            margin-top: 30px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            font-size: 0.85rem;
+            opacity: 0.6;
+        }
+        .footer-decoration i {
+            font-size: 1.2rem;
+            color: var(--oro);
+        }
+        .footer-bottom {
+            margin-top: 60px;
+            text-align: center;
+            opacity: 0.6;
+        }
+
+        .pwa-button {
+            display: inline-block;
+            transition: var(--transition-bounce);
+        }
+        .pwa-button:hover {
+            transform: scale(1.05) translateY(-3px);
+        }
+        .pwa-button img {
+            height: 55px;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes fade-up {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes scale-in {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @media (max-width: 1100px) {
+            .hero h1 { font-size: 3.8rem; }
+            .recursos-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 1000px) {
+            .hero { flex-direction: column; padding-top: 150px; text-align: center; gap: 40px; }
+            .hero-text p { margin-left: auto; margin-right: auto; }
+            .hero-stats { justify-content: center; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .atlas-container { max-width: 450px; margin: 0 auto; }
+            .recursos-grid { grid-template-columns: repeat(2, 1fr); }
+            .recursos-header h2 { font-size: 2.5rem; }
+            .video-contenedor { max-width: 90%; }
+        }
+        @media (max-width: 600px) {
+            .logo-img { height: 35px; }
+            h1.main-title { font-size: 2.8rem; }
+            .section-header h2 { font-size: 2.5rem; }
+            .features-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+            .atlas-container { max-width: 320px; }
+            .pin { width: 22px; height: 22px; }
+            .recursos-grid { grid-template-columns: 1fr; }
+            .video-seccion { padding: 60px 0; }
+            .video-contenedor { max-width: 95%; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container navbar">
+            <a href="index.html" class="logo">
+                <img src="images/logos-01.png" alt="COOLTURE" class="logo-img">
+            </a>
+            <nav class="nav-links">
+                <a href="index.html" class="active">Inici</a>
+                <a href="com-funciona.html">Com Funciona</a>
+                <a href="comunitat.html">La Comunitat</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container hero">
+            <div class="hero-text">
+                <span class="badge"><i class="fas fa-globe-americas"></i> Fòrum col·laboratiu · 2026</span>
+                <h1 class="main-title">
+                    Explora cultures, <br>
+                    aprèn <span class="highlight">coneixement real</span>
+                </h1>
+                <p>El Fòrum Cultural Digital on el coneixement es construeix de manera col·lectiva i verificada. Diu adéu als estereotips.</p>
+                <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                    <a href="com-funciona.html" class="btn btn-oro"><i class="fas fa-compass"></i> Descobreix COOLTURE</a>
+                    <a href="#video" class="btn" style="border:2px solid var(--negro); color:var(--negro);"><i class="fas fa-play"></i> Vídeo</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item"><h3>+12k</h3><p>Exploradors</p></div>
+                    <div class="stat-item"><h3>140+</h3><p>Països</p></div>
+                    <div class="stat-item"><h3>98%</h3><p>Verificat</p></div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="atlas-container">
+                    <div class="globe" id="globe">
+                        <div class="globe-map"></div>
+                        <div class="globe-clouds"></div>
+                        <div class="globe-shadow"></div>
+                        <div class="globe-atmosphere"></div>
+
+                        <!-- PINES -->
+                        <div class="pin" style="top: 30.6%; left: 84.6%;"
+                             data-country="Japó" data-emoji="🇯🇵"
+                             data-info="Al Japó, el silenci durant una conversa es considera un signe de respecte i reflexió, no d'incomoditat.">
+                            <span class="pin-tooltip">🇯🇵 Japó</span>
+                        </div>
+                        <div class="pin" style="top: 39.4%; left: 18.5%;"
+                             data-country="Mèxic" data-emoji="🇲🇽"
+                             data-info="El Dia de Morts mexicà va ser declarat Patrimoni Cultural Immaterial de la Humanitat per la UNESCO el 2008.">
+                            <span class="pin-tooltip">🇲🇽 Mèxic</span>
+                        </div>
+                        <div class="pin" style="top: 34.4%; left: 67.4%;"
+                             data-country="Índia" data-emoji="🇮🇳"
+                             data-info="L'Índia reconeix 22 idiomes oficials i més de 1.600 dialectes diferents arreu del seu territori.">
+                            <span class="pin-tooltip">🇮🇳 Índia</span>
+                        </div>
+                        <div class="pin" style="top: 50.6%; left: 56%;"
+                             data-country="Kènia" data-emoji="🇰🇪"
+                             data-info="Els massais de Kènia consideren que saltar alt és un símbol de força, valentia i prestigi dins la seva cultura.">
+                            <span class="pin-tooltip">🇰🇪 Kènia</span>
+                        </div>
+                        <div class="pin" style="top: 27.8%; left: 45.2%;"
+                             data-country="Espanya" data-emoji="🇪🇸"
+                             data-info="La migdiada espanyola té origen en la necessitat de descansar durant les hores de més calor al camp, especialment a l'estiu.">
+                            <span class="pin-tooltip">🇪🇸 Espanya</span>
+                        </div>
+                        <div class="pin" style="top: 62.2%; left: 34.1%;"
+                             data-country="Brasil" data-emoji="🇧🇷"
+                             data-info="El Carnaval de Rio de Janeiro atrau més de 2 milions de persones al carrer cada dia de festa, sent la major celebració del món.">
+                            <span class="pin-tooltip">🇧🇷 Brasil</span>
+                        </div>
+                        <div class="pin" style="top: 68.3%; left: 87.9%;"
+                             data-country="Austràlia" data-emoji="🇦🇺"
+                             data-info="El didgeridoo, instrument de vent aborigen australià, té més de 1.500 anys d'antiguitat i és un dels més antics del món.">
+                            <span class="pin-tooltip">🇦🇺 Austràlia</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section id="recursos" class="recursos">
+            <div class="container">
+                <div class="recursos-header reveal">
+                    <h2>Caixa d'<span>eines</span> del projecte</h2>
+                    <p>Accés directe a tots els recursos, codi i prototips</p>
+                </div>
+                <div class="recursos-grid">
+                    <a href="https://drive.google.com/drive/folders/1SUkg6dCZxTktCA2bNiuTNWaJcoSxrrXt?usp=sharing" target="_blank" rel="noopener noreferrer" class="recurso-card reveal">
+                        <div class="recurso-icono"><i class="fab fa-google-drive"></i></div>
+                        <h3 class="recurso-titulo">Material del projecte</h3>
+                        <p class="recurso-descripcion">Documentació, assets i recursos compartits</p>
+                        <span class="recurso-link"><i class="fas fa-external-link-alt"></i> Obrir Drive</span>
+                    </a>
+                    <a href="https://github.com/app-coolture/web" target="_blank" rel="noopener noreferrer" class="recurso-card reveal">
+                        <div class="recurso-icono"><i class="fab fa-github"></i></div>
+                        <h3 class="recurso-titulo">Codi Web</h3>
+                        <p class="recurso-descripcion">Repositori del frontend i pàgina principal</p>
+                        <span class="recurso-link"><i class="fas fa-code"></i> GitHub</span>
+                    </a>
+                    <a href="https://github.com/app-coolture/app" target="_blank" rel="noopener noreferrer" class="recurso-card reveal">
+                        <div class="recurso-icono"><i class="fab fa-github"></i></div>
+                        <h3 class="recurso-titulo">Codi App</h3>
+                        <p class="recurso-descripcion">Repositori de l'aplicació mòbil</p>
+                        <span class="recurso-link"><i class="fas fa-code"></i> GitHub</span>
+                    </a>
+                    <a href="https://xd.adobe.com/view/50034048-69c8-4d44-b753-863ead69e5e6-0550/?fullscreen&hints=off" target="_blank" rel="noopener noreferrer" class="recurso-card reveal">
+                        <div class="recurso-icono"><i class="fas fa-pencil-ruler"></i></div>
+                        <h3 class="recurso-titulo">Prototip UI</h3>
+                        <p class="recurso-descripcion">Disseny visual i fluxos (Adobe XD)</p>
+                        <span class="recurso-link"><i class="fas fa-external-link-alt"></i> Veure</span>
+                    </a>
+                    <div class="recurso-card multi-link reveal">
+                        <div class="recurso-icono"><i class="fas fa-rocket"></i></div>
+                        <h3 class="recurso-titulo">Vista en viu</h3>
+                        <p class="recurso-descripcion">Desplegament web i app funcional</p>
+                        <div class="recurso-enlaces">
+                            <a href="https://app-coolture.github.io/web/index.html" target="_blank" rel="noopener noreferrer" class="recurso-link"><i class="fas fa-globe"></i> Web</a>
+                            <a href="https://app-coolture.github.io/app/index.html" target="_blank" rel="noopener noreferrer" class="recurso-link"><i class="fas fa-mobile-alt"></i> App</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="video" class="video-seccion">
+            <div class="container">
+                <div class="video-header reveal">
+                    <h2>🎥 Vídeo <span style="background: linear-gradient(145deg, var(--verde), var(--oro)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">promocional</span></h2>
+                    <p>Descobreix COOLTURE en menys de dos minuts</p>
+                </div>
+                <div class="video-contenedor reveal">
+                    <video autoplay muted loop playsinline controls poster="images/video-poster.jpg">
+                        <source src="videos/promocional.mp4" type="video/mp4">
+                        El teu navegador no suporta l'etiqueta de vídeo.
+                    </video>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2>El teu viatge <span>cultural</span> comença aquí</h2>
+                    <p class="section-subtitle">Quatre pilars dissenyats per a un aprenentatge profund i interactiu</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card reveal" style="transition-delay: 0.1s">
+                        <div class="feature-image"><img src="images/forum.png" alt="Fòrum Global"></div>
+                        <h3>Fòrum Global</h3>
+                        <p>Informació verificada per continent i país. Debats moderats per exploradors i ambaixadors.</p>
+                    </div>
+                    <div class="feature-card reveal" style="transition-delay: 0.2s">
+                        <div class="feature-image"><img src="images/quizz.png" alt="Quizzes"></div>
+                        <h3>Quizzes Reptadors</h3>
+                        <p>Preguntes per entendre, no memoritzar. Puja de nivell i demostra el teu coneixement.</p>
+                    </div>
+                    <div class="feature-card reveal" style="transition-delay: 0.3s">
+                        <div class="feature-image"><img src="images/passaport3.png" alt="Passaport"></div>
+                        <h3>Passaport Digital</h3>
+                        <p>Registra països apresos i visitats. Col·lecciona segells exclusius.</p>
+                    </div>
+                    <div class="feature-card reveal" style="transition-delay: 0.4s">
+                        <div class="feature-image"><img src="images/perfil.png" alt="Perfil"></div>
+                        <h3>Perfil Personal</h3>
+                        <p>Crea el teu perfil únic, afegeix interessos culturals, acumula insígnies i connecta amb altres exploradors d'arreu del món.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- POPUP DE PAÍS -->
+    <div class="pin-popup-overlay" id="countryPopup">
+        <div class="pin-popup-card">
+            <button class="popup-close" id="closePopupBtn">&times;</button>
+            <div class="popup-emoji" id="popupEmoji"></div>
+            <div class="popup-title" id="popupTitle"></div>
+            <p class="popup-text" id="popupText"></p>
+            <span class="popup-badge"><i class="fas fa-map-pin"></i> COOLTURE · Fòrum Cultural</span>
+        </div>
+    </div>
+
+    <!-- MODAL FAQ -->
+    <div class="modal-overlay faq-modal" id="faqModal">
+        <div class="modal-card">
+            <button class="modal-close" id="closeFaqModalBtn">&times;</button>
+            <div class="modal-header">
+                <i class="fas fa-question-circle" style="font-size: 2.5rem; color: var(--oro);"></i>
+                <div>
+                    <div class="modal-title">Preguntes Freqüents</div>
+                    <div class="modal-subtitle">COOLTURE · Fòrum Cultural del Món</div>
+                </div>
+            </div>
+            <div class="faq-content" style="max-height: 60vh; overflow-y: auto; padding-right: 10px;">
+                <div style="margin-bottom: 20px;">
+                    <h3 style="color: var(--negro); font-size: 1.1rem; margin-bottom: 8px;">🌍 Què és COOLTURE?</h3>
+                    <p style="opacity: 0.8; font-size: 0.95rem;">COOLTURE és un Fòrum Cultural Digital col·laboratiu on el coneixement es construeix de manera conjunta i verificada. Una plataforma per aprendre sobre cultures del món, compartir coneixements reals i combatre els estereotips mitjançant dades contrastades.</p>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <h3 style="color: var(--negro); font-size: 1.1rem; margin-bottom: 8px;">📱 Com puc descarregar l'app?</h3>
+                    <p style="opacity: 0.8; font-size: 0.95rem;">COOLTURE funciona com una Progressive Web App (PWA). Pots instal·lar-la directament des del navegador al teu dispositiu mòbil o ordinador. Busca la icona d'instal·lació a la barra del navegador o visita la secció de descàrrega al footer.</p>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <h3 style="color: var(--negro); font-size: 1.1rem; margin-bottom: 8px;">💰 És gratuït l'ús de COOLTURE?</h3>
+                    <p style="opacity: 0.8; font-size: 0.95rem;">Sí, totalment gratuït. COOLTURE és un projecte educatiu sense ànim de lucre. No hi ha subscripcions, pagaments ni publicitat. Tot el contingut és accessible per a tothom.</p>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <h3 style="color: var(--negro); font-size: 1.1rem; margin-bottom: 8px;">👥 Com funciona la comunitat?</h3>
+                    <p style="opacity: 0.8; font-size: 0.95rem;">La comunitat s'organitza en tres nivells: Turistes (nous usuaris), Exploradors (usuaris actius que validen contingut) i Ambaixadors (moderadors de confiança). Pots pujar de nivell participant en debats, completant quizzes i verificant informació.</p>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <h3 style="color: var(--negro); font-size: 1.1rem; margin-bottom: 8px;">🔍 Com es verifica la informació?</h3>
+                    <p style="opacity: 0.8; font-size: 0.95rem;">El 98% del contingut està verificat per la comunitat. Els Exploradors i Ambaixadors revisen les dades, citen fonts fiables i moderen les discussions per garantir que la informació sigui precisa i lliure d'estereotips.</p>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <h3 style="color: var(--negro); font-size: 1.1rem; margin-bottom: 8px;">🎮 Què són els quizzes i el passaport?</h3>
+                    <p style="opacity: 0.8; font-size: 0.95rem;">Els quizzes són preguntes dissenyades per entendre les cultures, no per memoritzar dades. El Passaport Digital registra els països que has après i visitats virtualment, col·leccionant segells exclusius per cada fita aconseguida.</p>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <h3 style="color: var(--negro); font-size: 1.1rem; margin-bottom: 8px;">📧 Com puc contactar amb l'equip?</h3>
+                    <p style="opacity: 0.8; font-size: 0.95rem;">Pots escriure'ns a <strong>app-coolture@ifp-alguero.org</strong> per a qualsevol dubte, suggeriment o col·laboració. També pots seguir-nos a GitHub per veure el codi i contribuir al projecte.</p>
+                </div>
+                
+                <div style="text-align: center; margin-top: 25px; padding-top: 15px; border-top: 2px dashed var(--verde);">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PRIVACIDAD -->
+    <div class="modal-overlay privacy-modal" id="privacyModal">
+        <div class="modal-card">
+            <button class="modal-close" id="closePrivacyModalBtn">&times;</button>
+            <div class="modal-header">
+                <i class="fas fa-shield-alt" style="font-size: 2.5rem; color: var(--verde-oscuro);"></i>
+                <div>
+                    <div class="modal-title">Política de Privacitat</div>
+                    <div class="modal-subtitle">COOLTURE · Fòrum Cultural del Món</div>
+                </div>
+            </div>
+            <div class="privacy-content">
+                <p><strong>Última actualització:</strong> 13 d'abril de 2026</p>
+                <h3>1. Informació que recopilem</h3>
+                <p>COOLTURE recull únicament la informació necessària per al funcionament del Fòrum Cultural.</p>
+                <h3>2. Ús de les dades</h3>
+                <p>Personalitzar l'experiència, emmagatzemar progrés, notificacions opcionals.</p>
+                <h3>3. Cookies</h3>
+                <p>Cookies tècniques, sense publicitat.</p>
+                <h3>4. Drets</h3>
+                <p>Accés, rectificació, supressió a <strong>app-coolture@ifp-alguero.org</strong>.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <img src="images/logos-02.png" alt="COOLTURE" class="footer-logo-img">
+                    <p class="footer-text">Fòrum cultural col·laboratiu. Coneixement real, comunitat global.</p>
+                    <div class="footer-decoration"><i class="fas fa-globe"></i><span>Coneixement sense fronteres</span><i class="fas fa-leaf"></i></div>
+                </div>
+                <div>
+                    <h4 style="color: white;">Explora</h4>
+                    <ul style="list-style: none; margin-top: 20px; opacity: 0.7;">
+                        <li style="margin-bottom: 10px;"><a href="index.html" style="color: #ccc; text-decoration: none;">Inici</a></li>
+                        <li style="margin-bottom: 10px;"><a href="com-funciona.html" style="color: #ccc; text-decoration: none;">Funcions</a></li>
+                        <li style="margin-bottom: 10px;"><a href="comunitat.html" style="color: #ccc; text-decoration: none;">Comunitat</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: white;">Suport</h4>
+                    <ul style="list-style: none; margin-top: 20px; opacity: 0.7;">
+                        <li style="margin-bottom: 10px;"><a href="#" id="faqLink" style="color: #ccc; text-decoration: none;">FAQ</a></li>
+                        <li style="margin-bottom: 10px;"><a href="https://mail.google.com/mail/?view=cm&fs=1&to=app-coolture@ifp-alguero.org&su=Contacte%20COOLTURE" target="_blank" style="color: #ccc; text-decoration: none;">Contacte</a></li>
+                        <li style="margin-bottom: 10px;"><a href="#" id="privacyLink" style="color: #ccc; text-decoration: none;">Privacitat</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: white;">Descarrega l'app</h4>
+                    <div style="margin-top: 20px;">
+                        <a href="https://github.com/app-coolture/app" target="_blank" class="pwa-button">
+                            <img src="images/pwa.png" alt="Descarrega PWA">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 COOLTURE Platform — Construint coneixement global amb ❤️</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            const globe = document.getElementById('globe');
+
+            if (globe) {
+                globe.addEventListener('mouseenter', (e) => {
+                    const pin = e.target.closest('.pin');
+                    if (pin) globe.classList.add('paused');
+                }, true);
+
+                globe.addEventListener('mouseleave', (e) => {
+                    const pin = e.target.closest('.pin');
+                    if (pin && !globe.contains(e.relatedTarget)) {
+                        globe.classList.remove('paused');
+                    } else if (!pin) {
+                        globe.classList.remove('paused');
+                    }
+                }, true);
+
+                globe.addEventListener('click', function (e) {
+                    const pin = e.target.closest('.pin');
+                    if (pin) globe.classList.add('paused');
+                });
+            }
+
+            // POPUP DE PAÍS
+            const popupOverlay = document.getElementById('countryPopup');
+            const popupEmoji = document.getElementById('popupEmoji');
+            const popupTitle = document.getElementById('popupTitle');
+            const popupText = document.getElementById('popupText');
+            const closePopupBtn = document.getElementById('closePopupBtn');
+            const allPins = document.querySelectorAll('.pin');
+
+            allPins.forEach(pin => {
+                pin.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const country = this.dataset.country;
+                    const emoji = this.dataset.emoji;
+                    const info = this.dataset.info;
+                    popupEmoji.textContent = emoji;
+                    popupTitle.textContent = country;
+                    popupText.textContent = info;
+                    popupOverlay.classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+            function closeCountryPopup() {
+                popupOverlay.classList.remove('show');
+                document.body.style.overflow = '';
+                if (globe && !globe.querySelector('.pin:hover')) {
+                    globe.classList.remove('paused');
+                }
+            }
+
+            closePopupBtn.addEventListener('click', closeCountryPopup);
+            popupOverlay.addEventListener('click', (e) => {
+                if (e.target === popupOverlay) closeCountryPopup();
+            });
+
+            // MODALES PRIVACIDAD Y FAQ
+            const privacyModal = document.getElementById('privacyModal');
+            const privacyLink = document.getElementById('privacyLink');
+            const closePrivacyBtn = document.getElementById('closePrivacyModalBtn');
+
+            privacyLink?.addEventListener('click', (e) => {
+                e.preventDefault();
+                privacyModal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            });
+            closePrivacyBtn?.addEventListener('click', () => {
+                privacyModal.classList.remove('show');
+                document.body.style.overflow = '';
+            });
+            privacyModal?.addEventListener('click', (e) => {
+                if (e.target === privacyModal) {
+                    privacyModal.classList.remove('show');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            const faqModal = document.getElementById('faqModal');
+            const faqLink = document.getElementById('faqLink');
+            const closeFaqBtn = document.getElementById('closeFaqModalBtn');
+
+            faqLink?.addEventListener('click', (e) => {
+                e.preventDefault();
+                faqModal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            });
+            closeFaqBtn?.addEventListener('click', () => {
+                faqModal.classList.remove('show');
+                document.body.style.overflow = '';
+            });
+            faqModal?.addEventListener('click', (e) => {
+                if (e.target === faqModal) {
+                    faqModal.classList.remove('show');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // CERRAR CON ESCAPE
+            window.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    if (popupOverlay.classList.contains('show')) closeCountryPopup();
+                    if (privacyModal.classList.contains('show')) {
+                        privacyModal.classList.remove('show');
+                        document.body.style.overflow = '';
+                    }
+                    if (faqModal.classList.contains('show')) {
+                        faqModal.classList.remove('show');
+                        document.body.style.overflow = '';
+                    }
+                }
+            });
+
+            // REVEAL AL SCROLL
+            const reveals = document.querySelectorAll('.reveal');
+            function checkReveal() {
+                reveals.forEach(el => {
+                    const windowHeight = window.innerHeight;
+                    const elementTop = el.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - 100) el.classList.add('visible');
+                });
+            }
+            window.addEventListener('scroll', checkReveal);
+            window.addEventListener('load', checkReveal);
+            checkReveal();
+        })();
+    </script>
+</body>
+</html>
